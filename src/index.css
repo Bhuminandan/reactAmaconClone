@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .headerHover {
+    @apply flex items-center duration-300 px-2 py-2 hover:border-gray-600 border border-transparent rounded-md cursor-pointer;
+  }
+}
