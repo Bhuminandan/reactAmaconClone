@@ -9,3 +9,7 @@
     @apply flex items-center duration-300 px-2 py-2 hover:border-gray-600 border border-transparent rounded-md cursor-pointer;
   }
 }
+
+body::-webkit-scrollbar {
+  display: none;
+}

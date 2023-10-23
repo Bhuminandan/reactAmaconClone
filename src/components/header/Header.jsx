@@ -1,23 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { indiaflag, logo } from '../../assets/index'
 import { IoLocationSharp, IoSearch } from 'react-icons/io5'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { GiHamburgerMenu } from 'react-icons/gi'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleDropdown } from '../../redux/features/headerSlice'
+import HeaderBottom from './HeaderBottom'
 
 
 const Header = () => {
 
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dispatch = useDispatch()
+  const isDropdownOpen = useSelector(state => state.headerSlice.isDropdownOpen)
 
+  console.log(isDropdownOpen);
 
   return (
     <>
         <div className='w-full bg-amazon_blue text-white px-4 py-2 flex items-center justify-start gap-2 relative'>
 
             {/* ************************ Logo image starts here ******************************* */}
-            <div className='headerHover'>
+            <div className='headerHover flex items-center justify-center'>
               <img src={logo} alt="amazon logo" className='w-24'/>
             </div>
             {/* ************************ Logo image ends here ******************************* */}
@@ -38,7 +42,7 @@ const Header = () => {
             {/* ************************ Search starts here ******************************* */}
                 <div className='flex items-center justify-start flex-grow rounded-lg overflow-hidden h-full'>
                     <div className='flex items-center bg-zinc-200 py-2 px-2 text-slate-800 cursor-pointer'
-                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                            onClick={() => dispatch(toggleDropdown())}
                     >
                       <span>All </span><span><IoMdArrowDropdown/></span>                
                     </div>
@@ -54,11 +58,11 @@ const Header = () => {
                         isDropdownOpen && 
                         <div className='absolute w-full mt-10 -ml-8'>
                           <ul className='absolute flex flex-col bg-slate-100 p-4 text-slate-950 rounded-lg mt-1 shadow-lg'>
-                            <li className='hover:bg-slate-200 rounded-lg transition-all duration-200 py-2 px-2 cursor-pointer'>Electronics</li>
-                            <li className='hover:bg-slate-200 rounded-lg transition-all duration-200 py-2 px-2 cursor-pointer'>Home & Kitchen</li>
-                            <li className='hover:bg-slate-200 rounded-lg transition-all duration-200 py-2 px-2 cursor-pointer'>Beauty</li>
-                            <li className='hover:bg-slate-200 rounded-lg transition-all duration-200 py-2 px-2 cursor-pointer'>Books</li>
-                            <li className='hover:bg-slate-200 rounded-lg transition-all duration-200 py-2 px-2 cursor-pointer'>Home & Kitchen</li>
+                            <li onClick={() => dispatch(toggleDropdown())} className='hover:bg-slate-200 rounded-lg transition-all duration-200 py-2 px-2 cursor-pointer'>Electronics</li>
+                            <li onClick={() => dispatch(toggleDropdown())} className='hover:bg-slate-200 rounded-lg transition-all duration-200 py-2 px-2 cursor-pointer'>Home & Kitchen</li>
+                            <li onClick={() => dispatch(toggleDropdown())} className='hover:bg-slate-200 rounded-lg transition-all duration-200 py-2 px-2 cursor-pointer'>Beauty</li>
+                            <li onClick={() => dispatch(toggleDropdown())} className='hover:bg-slate-200 rounded-lg transition-all duration-200 py-2 px-2 cursor-pointer'>Books</li>
+                            <li onClick={() => dispatch(toggleDropdown())} className='hover:bg-slate-200 rounded-lg transition-all duration-200 py-2 px-2 cursor-pointer'>Home & Kitchen</li>
                           </ul>
                         </div>
                       }
@@ -97,16 +101,7 @@ const Header = () => {
                 </div>
             {/* ************************ Cart ends here ******************************* */}
         </div>
-        <div className=' bg-amazon_light py-2 px-4 flex items-center justify-start gap-6 h-10 text-white'>
-          <div className='flex items-center gap-2'>
-            <GiHamburgerMenu className='text-2xl cursor-pointer'/>
-            <div className='cursor-pointer text-sm'>All</div>
-          </div>
-          <div className='cursor-pointer text-sm'>Electronics</div>
-          <div className='cursor-pointer text-sm'>Home & Kitchen</div>
-          <div className='cursor-pointer text-sm'>Beauty</div>
-          <div className='cursor-pointer text-sm'>Books</div>
-        </div>
+       <HeaderBottom/>
     </>
   )
 }
