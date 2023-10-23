@@ -24,10 +24,10 @@ const HeaderBottom = () => {
 
                 </div>
 
-                <div className='headerHover cursor-pointer text-sm'>Electronics</div>
-                <div className='headerHover cursor-pointer text-sm'>Home & Kitchen</div>
-                <div className='headerHover cursor-pointer text-sm'>Beauty</div>
-                <div className='headerHover cursor-pointer text-sm'>Books</div>
+                <div className='headerHover cursor-pointer text-sm hidden md:inline-block'>Electronics</div>
+                <div className='headerHover cursor-pointer text-sm hidden md:inline-block'>Home & Kitchen</div>
+                <div className='headerHover cursor-pointer text-sm hidden md:inline-block'>Beauty</div>
+                <div className='headerHover cursor-pointer text-sm hidden md:inline-block'>Books</div>
 
                 {/* ************************ Bottom Header items ends ******************************* */}
 

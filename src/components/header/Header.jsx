@@ -30,7 +30,7 @@ const Header = () => {
 
 
             {/* ************************ Deliver starts here ******************************* */}
-            <div className='headerHover flex-col w-24'>
+            <div className='headerHover flex-col w-24 hidden xl:flex'>
               <p className='text-sm'>Deliver to</p>
               <div className='flex items-center transition-all duration-100 active:translate-y-1'>
                 <IoLocationSharp className='text-md'/>
@@ -71,7 +71,7 @@ const Header = () => {
             {/* ************************ Search ends here ******************************* */}
 
             {/* ************************ Language and country starts here ******************************* */}
-                <div className='flex items-center justify-center gap-2 headerHover'>
+                <div className='hidden xl:flex items-center justify-center gap-2 headerHover'>
                   <span>EN</span>
                   <img 
                     className='w-4'
@@ -81,14 +81,14 @@ const Header = () => {
             {/* ************************ Language and country ends here ******************************* */}
 
             {/* ************************ Sign in starts here ******************************* */}
-                <div className='flex flex-col items-start justify-start text-xs headerHover'>
+                <div className='hidden xl:flex flex-col items-start justify-start text-xs headerHover'>
                   <div >Hello, Sign in</div>
                   <div className='flex items-center text-sm font-semibold'>Account & Lists <IoMdArrowDropdown/></div>
                 </div>
             {/* ************************ Sign in ends here ******************************* */}
 
             {/* ************************ Orders starts here ******************************* */}
-                <div className='flex flex-col items-start justify-start text-xs headerHover'>
+                <div className='hidden xl:flex flex-col items-start justify-start text-xs headerHover'>
                   <div >Returns</div>
                   <div className='flex items-center text-sm font-semibold'>Orders <IoMdArrowDropdown/></div>
                 </div>

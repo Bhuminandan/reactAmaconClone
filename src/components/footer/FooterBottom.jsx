@@ -4,7 +4,6 @@ import { bottomFooterData } from '../../data'
 const FooterBottom = () => {
   return (
     <div className='border border-gray-700 bg-amazon_blue py-10 text-center'>
-
       <ul className='flex items-start justify-start gap-2 flex-wrap max-w-screen-lg m-auto'>
         {
           bottomFooterData && bottomFooterData.map((item) => {

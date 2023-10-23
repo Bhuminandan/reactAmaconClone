@@ -7,6 +7,8 @@ import { toggleSideMenu } from '../../../redux/features/headerSlice';
 import { useDispatch } from 'react-redux';
 import { AiOutlineClose } from 'react-icons/ai';
 import { motion } from 'framer-motion';
+
+
 const Sidebar = () => {
 
     const sideRef = useRef();
@@ -34,7 +36,7 @@ const Sidebar = () => {
     className='w-full min-h-screen fixed top-0 left-0 bg-amazon_blue bg-opacity-60 text-amazon_blue z-10 flex items-start justify-start'>
             <motion.div // adding motion to the sidebar 
                 ref={sideRef}
-                className='h-full md:w-1/4 w-1/2 bg-white absolute'
+                className='h-full md:w-1/4 w-3/4 bg-white absolute'
 
                 initial={{ x: -500, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
