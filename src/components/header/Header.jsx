@@ -12,9 +12,10 @@ const Header = () => {
 
 
   const dispatch = useDispatch()
+
+  // Getting the current state of isDropdownOpen
   const isDropdownOpen = useSelector(state => state.headerSlice.isDropdownOpen)
 
-  console.log(isDropdownOpen);
 
   return (
     <>
@@ -101,7 +102,10 @@ const Header = () => {
                 </div>
             {/* ************************ Cart ends here ******************************* */}
         </div>
-       <HeaderBottom/>
+
+        {/* ************************ Header bottom starts here ******************************* */}
+                <HeaderBottom/>
+        {/* ************************ Header bottom ends here ******************************* */}
     </>
   )
 }

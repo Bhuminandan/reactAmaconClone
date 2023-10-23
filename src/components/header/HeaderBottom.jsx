@@ -12,24 +12,38 @@ const HeaderBottom = () => {
 
   return (
     <div className='relative'>
-            <div className=' bg-amazon_light py-2 px-4 flex items-center justify-start gap-6 h-12 text-white'>
+          <div className=' bg-amazon_light py-2 px-4 flex items-center justify-start gap-6 h-12 text-white'>
+
+            {/* ************************ Bottom Header items ends ******************************* */}
                 <div 
                 onClick={() => dispatch(toggleSideMenu())}
                 className='headerHover flex items-center gap-2'>
+
                   <GiHamburgerMenu  className='text-2xl cursor-pointer'/>
                   <div className='cursor-pointer text-sm'>All</div>
+
                 </div>
+
                 <div className='headerHover cursor-pointer text-sm'>Electronics</div>
                 <div className='headerHover cursor-pointer text-sm'>Home & Kitchen</div>
                 <div className='headerHover cursor-pointer text-sm'>Beauty</div>
                 <div className='headerHover cursor-pointer text-sm'>Books</div>
+
+                {/* ************************ Bottom Header items ends ******************************* */}
+
+
         </div>
+
+        {/* ************************ Sidebar starts here ******************************* */}
         {
           isSideMenuOpen &&
           (
             <Sidebar/>
           )
         }
+
+        {/* ************************ Sidebar ends here ******************************* */}
+
     </div>
   )
 }

@@ -13,21 +13,26 @@ const Sidebar = () => {
     const dispatch = useDispatch();
 
 
+    // Toggle side menu on click of anywhere outside the side menu
     useEffect(() => {
 
+        // Add event listener to body to detect clicks outside the side menu
         const bodyListener = document.body.addEventListener('click', (e) => {
+
+            // checking if the event contains the sidebar, if so then toggling the sidemenu
             if (e.target.contains(sideRef.current)) {
                 dispatch(toggleSideMenu())
             }
         })
 
+        // Clean up
         return bodyListener;
     }, [sideRef, dispatch])
 
   return (
     <div 
     className='w-full min-h-screen fixed top-0 left-0 bg-amazon_blue bg-opacity-60 text-amazon_blue z-10 flex items-start justify-start'>
-            <motion.div 
+            <motion.div // adding motion to the sidebar 
                 ref={sideRef}
                 className='h-full md:w-1/4 w-1/2 bg-white absolute'
 
@@ -42,7 +47,7 @@ const Sidebar = () => {
                     <h3 className='text-xl text-white font-bold'>Hello, Sign In</h3>
                 </div>
                 <div
-                className='mt-4 px-5 h-full overflow-y-scroll'>
+                    className='mt-4 px-5 h-full overflow-y-scroll'>
                             {
                                 sidemenu && (
                                     sidemenu.data.map((sideMenuObj) => {
