@@ -10,11 +10,11 @@ const CartCardItem = ({title, description, price, rating, image, id, quantity}) 
 
 
   return (
-    <div className='md:w-1/2 w-full flex items-start justify-start gap-10 my-2 py-4 px-4 shadow-md cursor-pointer'>
+    <div className='md:w-1/2 border lg:w-9/12 w-full flex flex-col lg:flex-row items-center justify-center gap-10 my-2 py-4 px-4 shadow-md cursor-pointer'>
         <div className='w-32 h-32 rounded-2xl'>
         <img src={image} className='w-full h-full rounded-2xl object-contain border' alt="cartprdimg" />
         </div>
-        <div className='w-full flex flex-col items-start justify-start gap-2'>
+        <div className='w-full flex flex-col items-start justify-between md:justify-start gap-2'>
             <h1 className='text-sm font-bold'>{title}</h1>
             <p className='text-xs text-gray-500'>{description.substring(0, 50)}</p>
             <div className='flex items-center justify-start gap-4 w-full'>
@@ -24,7 +24,7 @@ const CartCardItem = ({title, description, price, rating, image, id, quantity}) 
                     <p>{rating}</p>
                 </div>
             </div>
-            <div className='flex items-center justify-between gap-2 w-full'>
+            <div className='flex items-center justify-between flex-wrap gap-2 w-full'>
                 <div className='flex items-center justify-center gap-2'>
                     <span className='px-2 py-1 rounded-lg bg-gray-100'
                     onClick={() => dispatch(increaseQuantity(id))}
