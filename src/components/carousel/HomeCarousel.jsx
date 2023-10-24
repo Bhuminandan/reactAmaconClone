@@ -20,7 +20,7 @@ const HomeCarousel = () => {
     }, []);
 
   return (
-    <div>
+    <div className='z-10 mt-24 md:mt-28'>
          <Carousel autoPlay={true}  centerSlidePercentage={100} centerMode={true} dynamicHeight={true} showArrows={false} showStatus={false} infiniteLoop={true} interval={3000} showThumbs={false}>
                 <div>
                     <img src={ innerScreenWidth < 768 ? bannerImgSix : bannerImgOne} alt='firstbannerImg' />

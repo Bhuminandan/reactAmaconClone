@@ -11,6 +11,7 @@ import bannerImgNine from "./banner/bannerImgNine.jpg";
 import bannerImgTen from "./banner/bannerImgTen.jpg";
 import bdFlag from "./bdFlag.webp";
 import indiaflag from "./indiaflag.png";
+import emptycart from "./emptycart.svg";
 
 export {
   logo,
@@ -26,4 +27,5 @@ export {
   bannerImgTen,
   bdFlag,
   indiaflag,
+  emptycart,
 };

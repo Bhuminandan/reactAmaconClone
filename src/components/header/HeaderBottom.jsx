@@ -11,7 +11,7 @@ const HeaderBottom = () => {
   const dispatch = useDispatch()
 
   return (
-    <div className='relative'>
+    <div>
           <div className=' bg-amazon_light py-2 px-4 flex items-center justify-start gap-6 h-12 text-white'>
 
             {/* ************************ Bottom Header items ends ******************************* */}

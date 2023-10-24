@@ -32,7 +32,7 @@ const PoductsGallary = () => {
     }
 
   return (
-    <div className='w-full m-auto border h-full py-10 bg-gray-100'>
+    <div className='w-full m-auto border h-full py-10 bg-white'>
         <div className='max-w-screen-2xl m-auto flex flex-wrap justify-between gap-4 border'>
             {
                 fetchedData.products && fetchedData.products.map((item) => {

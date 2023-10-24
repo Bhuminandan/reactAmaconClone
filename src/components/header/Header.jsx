@@ -6,20 +6,24 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleDropdown } from '../../redux/features/headerSlice'
 import HeaderBottom from './HeaderBottom'
+import { useNavigate } from 'react-router-dom'
 
 
 const Header = () => {
 
 
   const dispatch = useDispatch()
+  const navigate=  useNavigate();
+  let currentCartItems = useSelector(state => state.cartSlice.cartItems.length)
+  console.log(currentCartItems);
 
   // Getting the current state of isDropdownOpen
   const isDropdownOpen = useSelector(state => state.headerSlice.isDropdownOpen)
 
 
   return (
-    <>
-        <div className='w-full bg-amazon_blue text-white px-4 py-2 flex items-center justify-start gap-2 relative'>
+    <div className=' fixed w-full top-0 z-50'>
+        <div className='w-full bg-amazon_blue text-white px-4 py-2 flex items-center justify-start gap-2'>
 
             {/* ************************ Logo image starts here ******************************* */}
             <div className='headerHover flex items-center justify-center'>
@@ -95,18 +99,25 @@ const Header = () => {
             {/* ************************ Orders ends here ******************************* */}
 
             {/* ************************ Cart starts here ******************************* */}
-                <div className='flex items-end justify-end text-xs headerHover relative'>
+                <div className='items-end justify-end text-xs headerHover relative hidden md:flex'
+                onClick={() => navigate('/cart')}
+                >
                   <div className='flex items-center font-semibold text-4xl'><AiOutlineShoppingCart/></div>
-                  <div className='absolute top-0 right-8 p-1 px-2 bg-yellow-500 rounded-full'>0</div>
+                  <div className='absolute top-0 right-8 p-1 px-2 bg-yellow-500 rounded-full text-black font-semibold'>{currentCartItems ? currentCartItems : 0}</div>
                   <div>Cart</div>
                 </div>
             {/* ************************ Cart ends here ******************************* */}
-        </div>
 
+
+        </div>
         {/* ************************ Header bottom starts here ******************************* */}
-                <HeaderBottom/>
+          
+          <div>
+            <HeaderBottom/>
+          </div>
         {/* ************************ Header bottom ends here ******************************* */}
-    </>
+
+    </div>
   )
 }
 
