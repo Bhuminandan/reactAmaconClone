@@ -23,6 +23,7 @@ const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleSignupSubmit = (e) => {
 
@@ -50,6 +51,8 @@ const Signup = () => {
     toast.success('Creating account, please wait...', 3000)
 
     const handleSigup = async () => {
+
+      setLoading(true);
       
       try {
 
@@ -75,6 +78,8 @@ const Signup = () => {
 
         // Success toast
         successToast('Account created successfully', 1000);
+
+        setLoading(false)
         
         // Redirecting to login
         navigate('/auth/login');
@@ -89,6 +94,8 @@ const Signup = () => {
           errorToast('Something went wrong, Try again...', 1000);
         }
 
+        setLoading(false)
+
       }
     }
 
@@ -98,12 +105,14 @@ const Signup = () => {
     setEmail('')
     setPassword('')
     setConfirmPassword('')
+
+    setLoading(false);
     
   }
 
 
   return (
-    <div className='w-screen h-screen flex items-center justify-start mt-20 flex-col'>
+    <div className='w-screen h-screen flex items-center justify-start md:mt-20 mt-10 px-5 flex-col'>
       <div className='w-32 mb-10'>
         <img src={logo} alt="amazonlogo" />
       </div>
@@ -130,10 +139,12 @@ const Signup = () => {
           <PasswordInput type='password' placeholder='Confirm Password...' onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} />
         </div>
         <div className='flex items-center justify-center w-full rounded-md border'>
-          <Button btnText={'Create Account'} type='submit' />
+          <Button btnText={'Create Account'} type='submit' isActive={loading}/>
         </div>
       </form>
-      <div className='flex items-center justify-center mt-5 gap-2'>Already have an account? <span className='text-blue-500 hover:underline cursor-pointer'>Login</span></div>
+      <div className='flex items-center justify-center mt-5 gap-2'>Already have an account? <span className='text-blue-500 hover:underline cursor-pointer'
+      onClick={() => navigate('/auth/login')}
+      >Login</span></div>
     </div>
   )
 }
