@@ -26,7 +26,7 @@ const Header = () => {
         <div className='w-full bg-amazon_blue text-white px-4 py-2 flex items-center justify-start gap-2'>
 
             {/* ************************ Logo image starts here ******************************* */}
-            <div className='headerHover flex items-center justify-center'>
+            <div onClick={() => navigate('/')} className='headerHover flex items-center justify-center'>
               <img src={logo} alt="amazon logo" className='w-24'/>
             </div>
             {/* ************************ Logo image ends here ******************************* */}

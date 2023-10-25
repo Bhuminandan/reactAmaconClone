@@ -8,6 +8,9 @@
   .headerHover {
     @apply flex items-center duration-300 px-2 py-2 hover:border-gray-600 border border-transparent rounded-md cursor-pointer;
   }
+  .amazonBtn {
+    @apply flex items-center justify-center rounded-md border-[#b79033] bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400;
+  }
 }
 
 body::-webkit-scrollbar {
