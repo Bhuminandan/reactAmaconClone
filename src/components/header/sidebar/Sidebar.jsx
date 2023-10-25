@@ -4,7 +4,7 @@ import SidebarItem from './SidebarItem';
 import { nanoid } from '@reduxjs/toolkit';
 import {RiAccountCircleFill} from 'react-icons/ri'
 import { toggleSideMenu } from '../../../redux/features/headerSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineClose } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 import { GoSignOut } from 'react-icons/go';
@@ -20,6 +20,8 @@ const Sidebar = () => {
     const sideRef = useRef();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const user = useSelector(state => state.userSlice.user)
 
     // Toggle side menu on click of anywhere outside the side menu
     useEffect(() => {
@@ -80,7 +82,7 @@ const Sidebar = () => {
                 <div className='flex items-center  bg-amazon_light justify-between h-16 py-2 px-6 gap-2'>
                     <div className='flex items-center justify-center gap-2'>
                     <RiAccountCircleFill className='text-4xl text-white'/>
-                    <h3 className='text-xl text-white font-bold'>Hello, Sign In</h3>
+                    <h3 className='text-xl text-white font-bold'>Hello, {user ? user.name : 'Sign in'}</h3>
                     </div>
                     <GoSignOut className='md:text-4xl text-2xl text-white cursor-pointer' onClick={handleSignOut}/>
                 </div>

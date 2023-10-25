@@ -15,6 +15,10 @@ const Header = () => {
   const dispatch = useDispatch()
   const navigate=  useNavigate();
   let currentCartItems = useSelector(state => state.cartSlice.cartItems.length)
+
+  const user = useSelector(state => state.userSlice.user)
+  console.log(user);
+
   console.log(currentCartItems);
 
   // Getting the current state of isDropdownOpen
@@ -86,7 +90,7 @@ const Header = () => {
 
             {/* ************************ Sign in starts here ******************************* */}
                 <div className='hidden xl:flex flex-col items-start justify-start text-xs headerHover'>
-                  <div >Hello, Sign in</div>
+                  <div >Hello, {user ? user.name : 'Guest'}</div>
                   <div className='flex items-center text-sm font-semibold'>Account & Lists <IoMdArrowDropdown/></div>
                 </div>
             {/* ************************ Sign in ends here ******************************* */}

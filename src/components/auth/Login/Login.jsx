@@ -47,7 +47,7 @@ const Login = () => {
 
         // Storing user data in object
         dispatch(setUser({
-          name: userData.displayName,
+          name: userData.name,
           email: userData.email,
           uid: userData.uid,
           cartItems: []
