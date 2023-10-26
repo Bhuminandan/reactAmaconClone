@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {AiFillStar} from 'react-icons/ai'
 import { useDispatch } from 'react-redux';
 import { addToCard } from '../../redux/features/cartSlice'
+import { successToast } from '../ToastFunctions';
 
 
 
@@ -14,6 +15,9 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
   const {rate, count} = rating;
 
   const handleCardClick = () => {
+
+    successToast(`${title.substring(0, 10)}... added to cart`, 2000)
+
     dispatch(addToCard({
       id,
       title,

@@ -11,7 +11,7 @@ const FooterTop = () => {
           <button className='w-64 py-2 text-center bg-yellow-400 hover:bg-yellow-500 rounded-lg font-bold'>
             Sign in
           </button>
-          <div>New customer ? <Link to='/signup'>Start here</Link></div>
+          <div>New customer ? <Link to='/auth/signup'>Start here</Link></div>
       </div>
     </div>
   )

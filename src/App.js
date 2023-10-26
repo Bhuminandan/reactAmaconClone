@@ -38,6 +38,8 @@ function App() {
             if (userDoc.exists()) {
               const userData = userDoc.data();
 
+              console.log(userData);
+
               // Saving the user details in the redux
               dispatch(setUser({
                 name: userData.name,

@@ -27,14 +27,14 @@ const CartCardItem = ({title, description, price, rating, image, id, quantity}) 
             <div className='flex items-center justify-between flex-wrap gap-2 w-full'>
                 <div className='flex items-center justify-center gap-2'>
                     <span className='px-2 py-1 rounded-lg bg-gray-100'
-                    onClick={() => dispatch(increaseQuantity(id))}
-                    >+</span>
-                    {quantity}
-                    <span className='px-2 py-1 rounded-lg bg-gray-100'
                     onClick={() => dispatch(decreaseQuantity(id))}
                     >-</span>
+                    <span className='px-4 py-1 rounded-lg border'>{quantity}</span>
+                    <span className='px-2 py-1 rounded-lg bg-gray-100'
+                    onClick={() => dispatch(increaseQuantity(id))}
+                    >+</span>
                 </div>
-                <div className='text-sm text-gray-500 bg-gray-100 rounded-md py-1 px-2'
+                <div className='text-sm text-red-500 bg-red-100 rounded-md py-1 px-2'
                     onClick={() => dispatch(removeFromCart(id))}
                 >
                     Remove from Cart

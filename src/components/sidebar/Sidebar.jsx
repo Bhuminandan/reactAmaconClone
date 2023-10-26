@@ -13,7 +13,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import { errorToast, successToast } from '../../ToastFunctions';
 import { useNavigate } from 'react-router-dom';
-
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 const Sidebar = () => {
 
@@ -38,6 +38,11 @@ const Sidebar = () => {
         // Clean up
         return bodyListener;
     }, [sideRef, dispatch])
+
+    const handleCartClick = () => {
+        navigate('/cart')
+        dispatch(toggleSideMenu())
+    }
 
 
     const handleSignOut = async () => {
@@ -84,7 +89,10 @@ const Sidebar = () => {
                     <RiAccountCircleFill className='text-4xl text-white'/>
                     <h3 className='text-xl text-white font-bold'>Hello, {user ? user.name : 'Sign in'}</h3>
                     </div>
+                    <div className='flex items-center justify-center gap-2'>
+                    <AiOutlineShoppingCart className='md:text-4xl text-2xl text-white cursor-pointer' onClick={handleCartClick}/>
                     <GoSignOut className='md:text-4xl text-2xl text-white cursor-pointer' onClick={handleSignOut}/>
+                    </div>
                 </div>
                 <div
                     className='mt-4 px-5 h-full overflow-y-scroll'>
