@@ -1,7 +1,7 @@
-import { nanoid } from '@reduxjs/toolkit'
 import React from 'react'
+import { nanoid } from '@reduxjs/toolkit'
 import { SlArrowRight } from 'react-icons/sl'
-import { toggleSideMenu } from '../../../redux/features/headerSlice'
+import { toggleSideMenu } from '../../redux/features/headerSlice'
 import { useDispatch } from 'react-redux'
 
 const SidebarItem = ({sideMenuObj}) => {

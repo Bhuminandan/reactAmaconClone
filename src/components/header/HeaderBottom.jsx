@@ -1,8 +1,8 @@
 import React from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { useDispatch, useSelector } from 'react-redux'
-import Sidebar from './sidebar/Sidebar'
 import { toggleSideMenu } from '../../redux/features/headerSlice'
+import Sidebar from '../sidebar/Sidebar'
 
 const HeaderBottom = () => {
 

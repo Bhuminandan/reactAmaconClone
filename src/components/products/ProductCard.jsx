@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import {AiFillStar} from 'react-icons/ai'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { addToCard } from '../../redux/features/cartSlice'
 import { successToast } from '../ToastFunctions';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../firebase';
 
 
 
@@ -11,12 +13,53 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
   const dispatch = useDispatch();
 
   const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const user = useSelector(state => state.userSlice.user)
   
   const {rate, count} = rating;
 
-  const handleCardClick = () => {
+  const handleCardClick = async () => {
+
 
     successToast(`${title.substring(0, 10)}... added to cart`, 2000)
+
+    // Adding the product to the cart
+    let userData;
+
+    console.log(user.cartItems.some((item) => item.id === id));
+
+    if (user.cartItems.some((item) => item.id === id)) {
+
+      userData = {
+        ...user,
+          cartItems : [
+            ...user.cartItems.map((item) => {
+              return item.id === id ? {...item, quantity : item.quantity + 1} : item
+            })
+          ]
+    }
+      
+    } else {
+      userData = {
+        ...user,
+        cartItems : [
+          ...user.cartItems,
+          {
+              id,
+              title,
+              catagory,
+              description,
+              image,
+              price,
+              rating,
+              quantity : 1
+          }
+        ]
+      }
+    }
+
+    // Adding user to database
+    await updateDoc(doc(db, 'users', user.uid), userData)
+
 
     dispatch(addToCard({
       id,
@@ -28,7 +71,9 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
       rating,
       quantity : 1,
     }))
+
     setIsAddedToCart(true);
+
   }
 
   return (
@@ -58,5 +103,6 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
     </div>
   )
 }
+
 
 export default ProductCard

@@ -6,7 +6,6 @@ import { emptycart } from '../../assets';
 const Cart = () => {
 
   let cartItems = useSelector(state => state.cartSlice.cartItems);
-  console.log(cartItems);
 
   let subtotal = cartItems.reduce((acc, item) => {
     return acc + item.price * item.quantity;

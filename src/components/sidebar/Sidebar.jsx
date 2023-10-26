@@ -1,17 +1,17 @@
 import React, { useEffect, useRef } from 'react'
-import { sidemenu } from '../../../data/index'
+import { sidemenu } from '../../data/index'
 import SidebarItem from './SidebarItem';
 import { nanoid } from '@reduxjs/toolkit';
 import {RiAccountCircleFill} from 'react-icons/ri'
-import { toggleSideMenu } from '../../../redux/features/headerSlice';
+import { toggleSideMenu } from '../../redux/features/headerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineClose } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 import { GoSignOut } from 'react-icons/go';
-import { clearUser } from '../../../redux/features/userSlice';
+import { clearUser } from '../../redux/features/userSlice';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../../firebase';
-import { errorToast, successToast } from '../../ToastFunctions';
+import { auth } from '../../firebase';
+import { errorToast, successToast } from '../ToastFunctions';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
