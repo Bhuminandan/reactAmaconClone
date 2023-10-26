@@ -16,7 +16,7 @@ import { setUser } from './redux/features/userSlice';
 import { errorToast } from './components/ToastFunctions';
 import SuccessPayment from './components/afterPayment/SuccessPayment';
 import FailPayment from './components/afterPayment/FailPayment';
-
+import ProductDetails from './components/productDetails/ProductDetails';
 
 function App() {
 
@@ -106,6 +106,7 @@ function App() {
           <Route path='/' element={<Layout />} >
             <Route index element={<Home />} />
             <Route path='/cart' element={<Cart />} />
+            <Route path='/products/details/:id' element={<ProductDetails/>} />
             <Route path='/success' element={<SuccessPayment />} />
             <Route path='/cencel' element={<FailPayment />} />
           </Route>
