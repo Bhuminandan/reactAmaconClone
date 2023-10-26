@@ -1,7 +1,13 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import CartCardItem from './CartCardItem';
 import { emptycart } from '../../assets';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
+import { errorToast, successToast } from '../ToastFunctions/index';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../firebase';
+import { setUser } from '../../redux/features/userSlice';
 
 const Cart = () => {
 
@@ -10,6 +16,60 @@ const Cart = () => {
   let subtotal = cartItems.reduce((acc, item) => {
     return acc + item.price * item.quantity;
   }, 0).toFixed(2)
+
+  const user = useSelector(state => state.userSlice.user)
+  const dispatch = useDispatch()
+
+
+
+  const handleCheckOut = async () => {
+
+    if (cartItems.length === 0) {
+      errorToast('Your cart is empty')
+      return;
+    }
+
+    // Payment integration
+    const stripe = await loadStripe(`${process.env.REACT_APP_PUBLISHER_KEY}`)
+
+    const body = {
+      items: cartItems,
+      total: subtotal
+    }
+
+    const headers = {
+      'Content-Type' : 'application/json'
+    }
+
+    const res = await axios.post('http://localhost:7000/checkout-create-session', body, { headers });
+
+    const session = res.data;
+
+    const result  = await stripe.redirectToCheckout({
+      sessionId: session.id
+    })
+
+    if (result.error) {
+        console.log(result.error.message)
+        errorToast(result.error.message)
+    } else {
+        successToast('Checkout successful', 1000)
+    }
+
+    const updatedUser = {
+      ...user,
+      cartItems: []
+    }
+
+    // Removing items from users firebase data
+    await updateDoc(doc(db, 'users', user.uid), updatedUser)
+
+    // Removing cart items from redux store
+
+    dispatch(setUser(updatedUser));
+
+
+  }
 
   return (
     <div
@@ -68,7 +128,9 @@ const Cart = () => {
                     <div className='text-lg font-semibold'>${subtotal}</div>
                 </div>
                 </div>
-            <button className='w-full py-2 text-center bg-yellow-400 hover:bg-yellow-500 rounded-lg font-bold'>Proceed to Checkout</button>
+            <button 
+            onClick={handleCheckOut}
+            className='w-full py-2 text-center bg-yellow-400 hover:bg-yellow-500 rounded-lg font-bold'>Proceed to Checkout</button>
             </div>
     </div>
   )

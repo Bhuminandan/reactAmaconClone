@@ -14,6 +14,8 @@ import { auth, db } from './firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { setUser } from './redux/features/userSlice';
 import { errorToast } from './components/ToastFunctions';
+import SuccessPayment from './components/afterPayment/SuccessPayment';
+import FailPayment from './components/afterPayment/FailPayment';
 
 
 function App() {
@@ -104,6 +106,8 @@ function App() {
           <Route path='/' element={<Layout />} >
             <Route index element={<Home />} />
             <Route path='/cart' element={<Cart />} />
+            <Route path='/success' element={<SuccessPayment />} />
+            <Route path='/cencel' element={<FailPayment />} />
           </Route>
         </Route>
 

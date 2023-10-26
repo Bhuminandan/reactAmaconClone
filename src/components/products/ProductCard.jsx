@@ -25,8 +25,6 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
     // Adding the product to the cart
     let userData;
 
-    console.log(user.cartItems.some((item) => item.id === id));
-
     if (user.cartItems.some((item) => item.id === id)) {
 
       userData = {
