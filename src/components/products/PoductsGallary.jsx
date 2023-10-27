@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchProducts } from '../../redux/features/productsSlice'
 import PageLoader from '../loaders/PageLoader'
 import ProductCard from './ProductCard'
+import ProductCardSkeleton from '../skeleton/ProductCardSkeleton'
+import { SkeletonTheme } from 'react-loading-skeleton'
 
 const PoductsGallary = () => {
     
@@ -71,9 +73,20 @@ const PoductsGallary = () => {
 
   return (
     <div className='w-full m-auto border h-full py-10 bg-white px-5 flex flex-col items-start justify-between gap-2'>
-        <div className='max-w-screen-2xl m-auto flex flex-wrap justify-between gap-4 border'>
+        <div className='max-w-screen-2xl m-auto flex flex-wrap justify-between gap-4'>
             {
-                products && products.map((item) => {
+                products === 0 ?
+                    <SkeletonTheme baseColor='#e0e0e0' highlightColor='#f5f5f5' width={340} height={340} inline borderRadius={5}>
+                            <ProductCardSkeleton count={1}/>
+                            <ProductCardSkeleton count={1}/>
+                            <ProductCardSkeleton count={1}/>
+                            <ProductCardSkeleton count={1}/>
+                            <ProductCardSkeleton count={1}/>
+                            <ProductCardSkeleton count={1}/>
+                    </SkeletonTheme>
+
+                :
+                products.map((item) => {
                     return (
                         <ProductCard
                             key={item.id}

@@ -73,7 +73,7 @@ const Cart = () => {
 
   return (
     <div
-    className='flex items-start justify-between gap-2 md:flex-nowrap flex-wrap-reverse w-full h-full mt-36 px-10'
+    className='flex items-start justify-between gap-2 md:flex-nowrap flex-wrap-reverse w-full h-full mt-36 px-10 pb-20 md:pb-40'
     >
             <div className='flex flex-col items-start justify-start gap-2 md:w-2/3 w-full h-full mb-5'>
                 <div>

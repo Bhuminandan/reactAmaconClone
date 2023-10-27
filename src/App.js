@@ -1,23 +1,37 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Layout from './components/layout/Layout';
-import Home from './components/home/Home';
-import Cart from './components/Cart/Cart';
-import Signup from './components/auth/Signup/Signup'
-import Login from './components/auth/Login/Login';
 import { Toaster } from 'react-hot-toast';
-import PrivateRoutes from './components/private/PrivateRoutes';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from './firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { setUser } from './redux/features/userSlice';
 import { errorToast } from './components/ToastFunctions';
-import SuccessPayment from './components/afterPayment/SuccessPayment';
-import FailPayment from './components/afterPayment/FailPayment';
-import ProductDetails from './components/productDetails/ProductDetails';
 import { setCartItems } from './redux/features/cartSlice';
+import PageLoader from './components/loaders/PageLoader';
+
+// import Layout from './components/layout/Layout';
+// import Home from './components/home/Home';
+// import Cart from './components/Cart/Cart';
+// import Signup from './components/auth/Signup/Signup'
+// import Login from './components/auth/Login/Login';
+// import PrivateRoutes from './components/private/PrivateRoutes';
+// import SuccessPayment from './components/afterPayment/SuccessPayment';
+// import ProductDetails from './components/productDetails/ProductDetails';
+// import FailPayment from './components/afterPayment/FailPayment';
+
+const Layout = lazy(() => import('./components/layout/Layout'));
+const Home = lazy(() => import('./components/home/Home'));
+const Cart = lazy(() => import('./components/Cart/Cart'));
+const Signup = lazy(() => import('./components/auth/Signup/Signup'));
+const Login = lazy(() => import('./components/auth/Login/Login'));
+const PrivateRoutes = lazy(() => import('./components/private/PrivateRoutes'));
+const SuccessPayment = lazy(() => import('./components/afterPayment/SuccessPayment'));
+const ProductDetails = lazy(() => import('./components/productDetails/ProductDetails'));
+const FailPayment = lazy(() => import('./components/afterPayment/FailPayment'));
+
+
 
 function App() {
 
@@ -78,45 +92,47 @@ function App() {
 
 
   return (
-    <div className='font-bodyFont w-screen min-h-screen'>
-      <Toaster
-        toastOptions={{
-          success: {
-            style: {
-              background: 'white',
-              color: 'black'
+    <Suspense fallback={<PageLoader />}>
+      <div className='font-bodyFont w-screen min-h-screen'>
+        <Toaster
+          toastOptions={{
+            success: {
+              style: {
+                background: 'white',
+                color: 'black'
+              },
             },
-          },
-          error: {
-            style: {
-              background: 'white',
-              color: 'black'
+            error: {
+              style: {
+                background: 'white',
+                color: 'black'
+              },
             },
-          },
-        }}
-      />
-      <Routes>
+          }}
+        />
+        <Routes>
 
-        {/* Auth routes */}
-        <Route path='/auth' >
-          <Route index element={<Signup />} />
-          <Route path='signup' element={<Signup />} />
-          <Route path='login' element={<Login />} />
-        </Route>
-
-        {/* Private routes */}
-        <Route element={<PrivateRoutes />} >
-          <Route path='/' element={<Layout />} >
-            <Route index element={<Home />} />
-            <Route path='/cart' element={<Cart />} />
-            <Route path='/products/details/:id' element={<ProductDetails />} />
-            <Route path='/success' element={<SuccessPayment />} />
-            <Route path='/cencel' element={<FailPayment />} />
+          {/* Auth routes */}
+          <Route path='/auth' >
+            <Route index element={<Signup />} />
+            <Route path='signup' element={<Signup />} />
+            <Route path='login' element={<Login />} />
           </Route>
-        </Route>
 
-      </Routes>
-    </div>
+          {/* Private routes */}
+          <Route element={<PrivateRoutes />} >
+            <Route path='/' element={<Layout />} >
+              <Route index element={<Home />} />
+              <Route path='/cart' element={<Cart />} />
+              <Route path='/products/details/:id' element={<ProductDetails />} />
+              <Route path='/success' element={<SuccessPayment />} />
+              <Route path='/cencel' element={<FailPayment />} />
+            </Route>
+          </Route>
+
+        </Routes>
+      </div>
+    </Suspense>
   );
 }
 
