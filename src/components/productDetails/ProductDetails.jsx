@@ -7,6 +7,7 @@ import Button from '../common/Button'
 import { doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
 import {errorToast} from '../ToastFunctions/index'
+import Category from '../catagory/Category'
 
 const ProductDetails = () => {
 
@@ -144,6 +145,10 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </div>
+        </div>
+        <div className='w-full'>
+          <h2 className='text-2xl font-bold my-10'>Similar Products</h2>
+          <Category category={catagory}/>
         </div>
     </div>
   )
