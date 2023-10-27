@@ -31,6 +31,7 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
       price,
       rating,
       title,
+      quantity : 1
     }
 
     dispatch(setProductDetails(currentProdData))
@@ -39,8 +40,9 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
 
   }
 
-  const handleAddToCartClick = async () => {
+  const handleAddToCartClick = async (e) => {
 
+    e.stopPropagation();
 
     successToast(`${title.substring(0, 10)}... added to cart`, 2000)
 
@@ -101,7 +103,7 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
     onClick={handleCardClick}
     className='w-full md:w-[350px] h-[460px] rounded-lg bg-white cursor-pointer hover:scale-[1.01] transition-all duration-100 flex flex-col items-center justify-start gap-4 border p-4 shadow-md'>
       <div className='w-full h-[250px] p-1'>
-        <img src={image} alt={title} className='w-full h-full object-contain border rounded-lg p-2'/>
+        <img src={image} alt={title} className='w-full h-[250px] object-contain border rounded-lg p-2'/>
       </div>
       <div className='flex flex-col items-start justify-between gap-2 w-full h-full'>
         <h1 className='text-sm font-bold'>{title}</h1>
@@ -118,7 +120,7 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
          onClick={handleAddToCartClick}
          className='bg-yellow-400 font-medium px-2 py-2 w-full rounded-lg hover:bg-yellow-500 text-amazon_blue'>
           {
-            isAddedToCart ? 'Added to cart' : 'Add to cart'
+            isAddedToCart ? 'Added to cart ✔' : 'Add to cart'
           }
          </button>
       </div>

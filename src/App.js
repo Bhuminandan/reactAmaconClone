@@ -17,6 +17,7 @@ import { errorToast } from './components/ToastFunctions';
 import SuccessPayment from './components/afterPayment/SuccessPayment';
 import FailPayment from './components/afterPayment/FailPayment';
 import ProductDetails from './components/productDetails/ProductDetails';
+import { setCartItems } from './redux/features/cartSlice';
 
 function App() {
 
@@ -49,6 +50,8 @@ function App() {
                 uid: userData.uid,
                 cartItems: userData.cartItems
               }));
+
+              dispatch(setCartItems(userData.cartItems))
 
             }
           },
@@ -106,7 +109,7 @@ function App() {
           <Route path='/' element={<Layout />} >
             <Route index element={<Home />} />
             <Route path='/cart' element={<Cart />} />
-            <Route path='/products/details/:id' element={<ProductDetails/>} />
+            <Route path='/products/details/:id' element={<ProductDetails />} />
             <Route path='/success' element={<SuccessPayment />} />
             <Route path='/cencel' element={<FailPayment />} />
           </Route>

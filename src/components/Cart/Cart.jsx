@@ -91,7 +91,7 @@ const Cart = () => {
                                             image={item.image}
                                             title={item.title}
                                             price={item.price}
-                                            rating={item.rating.rate}
+                                            rating={item.rating?.rate}
                                             description={item.description}
                                             quantity={item.quantity}
                                         />
@@ -116,7 +116,7 @@ const Cart = () => {
                         cartItems.map((cartItem) => {
                             return (
                                 <div key={cartItem.id} className='w-full flex items-center justify-between gap-10'>
-                                    <h1 className='text-sm'>{cartItem.title.substring(0, 20)}...</h1>
+                                    <h1 className='text-sm'>{cartItem?.title?.substring(0, 20)}...</h1>
                                     <h1 className='text-sm  font-bold'>${cartItem.price}</h1>
                                 </div>
                             )

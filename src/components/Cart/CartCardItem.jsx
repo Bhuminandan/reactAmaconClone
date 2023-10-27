@@ -1,12 +1,24 @@
 import React from 'react'
 import { AiFillStar } from 'react-icons/ai'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { decreaseQuantity, increaseQuantity, removeFromCart } from '../../redux/features/cartSlice'
+import { doc, updateDoc } from 'firebase/firestore'
+import { db } from '../../firebase'
 
 const CartCardItem = ({title, description, price, rating, image, id, quantity}) => {
 
 
    const dispatch = useDispatch()
+   const user = useSelector(state => state.userSlice.user)
+
+   const handleRemoveFromCart = async() => {
+
+    const updatedCart = user.cartItems.filter((item) => item.id !== id)
+    await updateDoc(doc(db, 'users', user.uid), {
+      cartItems : updatedCart
+    })
+       dispatch(removeFromCart(id))
+   }
 
 
   return (
@@ -35,7 +47,7 @@ const CartCardItem = ({title, description, price, rating, image, id, quantity}) 
                     >+</span>
                 </div>
                 <div className='text-sm text-red-500 bg-red-100 rounded-md py-1 px-2'
-                    onClick={() => dispatch(removeFromCart(id))}
+                    onClick={handleRemoveFromCart}
                 >
                     Remove from Cart
                 </div>
