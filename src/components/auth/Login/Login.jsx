@@ -106,6 +106,11 @@ const Login = () => {
     <div className='flex items-center justify-center mt-5 gap-2'>Don't have and account? <span className='text-blue-500 hover:underline cursor-pointer'
     onClick={() => navigate('/auth/signup')}
     >Signup</span></div>
+    <div className='w-full flex items-center justify-center gap-2  pb-20'>
+        Forgot Passward ? <span className='text-blue-500 hover:underline cursor-pointer'
+        onClick={() => navigate('/auth/password-reset')}
+        >Reset Password</span>
+      </div>
   </div>
   )
 }

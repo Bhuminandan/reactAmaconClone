@@ -24,6 +24,7 @@ const Signup = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [isPrivacyPolicyChecked, setIsPrivacyPolicyChecked] = useState(false)
 
   const handleSignupSubmit = (e) => {
 
@@ -46,7 +47,13 @@ const Signup = () => {
       errorToast('Passwords password do not match', 3000);
       return;
 
+    } else if(!isPrivacyPolicyChecked) {
+
+      errorToast('Please accept the terms and conditions', 2000);
+      return;
+
     }
+
 
     toast.success('Creating account, please wait...', 3000)
 
@@ -105,19 +112,17 @@ const Signup = () => {
     setEmail('')
     setPassword('')
     setConfirmPassword('')
-
+    setIsPrivacyPolicyChecked(false)
     setLoading(false);
     
   }
 
 
   return (
-    <div className='w-screen h-screen flex items-center justify-start md:mt-20 mt-10 px-5 flex-col'>
+    <div className='w-screen h-screen flex items-center justify-start md:mt-20 mt-10 px-5 flex-col pb-20'>
       <div className='w-32 mb-10'>
         <img src={logo} alt="amazonlogo" />
       </div>
-
-
       <form
         onSubmit={handleSignupSubmit}
         className='flex flex-col items-start justify-start border gap-4 rounded-sm p-4 w-full px-10 md:w-1/3'>
@@ -142,9 +147,19 @@ const Signup = () => {
           <Button btnText={'Create Account'} type='submit' isActive={loading}/>
         </div>
       </form>
+      <div className='w-full flex items-center justify-center gap-4 pt-5'>
+        <input onChange={() => setIsPrivacyPolicyChecked(!isPrivacyPolicyChecked)} checked={isPrivacyPolicyChecked} id='remember' type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+        <label htmlFor="remember">Agree to our <span className='text-blue-500'>Terms and Conditions</span></label>
+      </div>
       <div className='flex items-center justify-center mt-5 gap-2'>Already have an account? <span className='text-blue-500 hover:underline cursor-pointer'
       onClick={() => navigate('/auth/login')}
-      >Login</span></div>
+      >Login</span>
+      </div>
+      <div className='w-full flex items-center justify-center gap-2  pb-20'>
+        Forgot Passward ? <span className='text-blue-500 hover:underline cursor-pointer'
+        onClick={() => navigate('/auth/password-reset')}
+        >Reset Password</span>
+      </div>
     </div>
   )
 }

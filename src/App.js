@@ -10,6 +10,7 @@ import { setUser } from './redux/features/userSlice';
 import { errorToast } from './components/ToastFunctions';
 import { setCartItems } from './redux/features/cartSlice';
 import PageLoader from './components/loaders/PageLoader';
+import ForgotPassward from './components/auth/ForgotPassward/ForgotPassward';
 
 // import Layout from './components/layout/Layout';
 // import Home from './components/home/Home';
@@ -117,6 +118,7 @@ function App() {
             <Route index element={<Signup />} />
             <Route path='signup' element={<Signup />} />
             <Route path='login' element={<Login />} />
+            <Route path='password-reset' element={<ForgotPassward />} />
           </Route>
 
           {/* Private routes */}
