@@ -1,4 +1,6 @@
 export const middleFooterData = [
+
+    // Middle Footer data
     {
         "title": "Get to Know Us",
         "links": ["About Us", "Careers", "Press Releases", "Amazon Science"]

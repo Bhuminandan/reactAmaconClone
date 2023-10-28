@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchProducts } from '../../redux/features/productsSlice'
 import PageLoader from '../loaders/PageLoader'
@@ -9,34 +9,49 @@ import { SkeletonTheme } from 'react-loading-skeleton'
 const PoductsGallary = () => {
     
     
-    const dispatch = useDispatch()
-    const fetchedData = useSelector(state => state.productsSlice)
-
     const [pageCount, setPageCount] = useState([])
     const [currentPage, setCurrentPage] = useState(0)
     const [products, setProducts] = useState([])
 
+    const dispatch = useDispatch()
+
+    // getting products
+    const fetchedData = useSelector(state => state.productsSlice)
+
+
     
     const handlePagination = () => {
 
+        // showing 8 products per page
         let Limit = 8;
+
+        // calculating skip
         let skip = Limit * currentPage;
 
+        // calculating number of pages
         let numOfPages = Math.ceil(fetchedData.products.length / 8)
+
+        // updating page count
         setPageCount([...Array(numOfPages).keys()])
+
+        // updating products
         setProducts(fetchedData.products.slice(skip, skip + Limit))
+
     }
 
 
+    // Useeffct for pagination
     useEffect(() => {
         handlePagination();
     }, [fetchedData, currentPage])
 
 
+    // fetching products
     useEffect(() => {
         dispatch(fetchProducts())
     }, [dispatch])
 
+    // loading
     if (fetchedData.isLoading) {
         return (
            <div className='flex items-center justify-center w-full h-full'>
@@ -45,6 +60,7 @@ const PoductsGallary = () => {
         )
     }
 
+    // error
     if (fetchedData.error) {
         return (
         <div className='flex items-center justify-center w-full h-full'>
@@ -54,17 +70,20 @@ const PoductsGallary = () => {
     }
 
 
+    // pagination
     const handlePageClick = (event) => {
         const clickedPage = parseInt(event.target.textContent);
         setCurrentPage(clickedPage - 1);
     }
 
+    // prev
     const handlePrevClick = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1)
         }
     }
 
+    // next
     const handleNextClick = () => {
         if (currentPage < pageCount.length-1) {
             setCurrentPage(currentPage + 1)
@@ -76,6 +95,7 @@ const PoductsGallary = () => {
         <div className='max-w-screen-2xl m-auto flex flex-wrap justify-between gap-4'>
             {
                 products === 0 ?
+                // showing skeleton
                     <SkeletonTheme baseColor='#e0e0e0' highlightColor='#f5f5f5' width={340} height={340} inline borderRadius={5}>
                             <ProductCardSkeleton count={1}/>
                             <ProductCardSkeleton count={1}/>
@@ -86,6 +106,7 @@ const PoductsGallary = () => {
                     </SkeletonTheme>
 
                 :
+                // showing products 
                 products.map((item) => {
                     return (
                         <ProductCard

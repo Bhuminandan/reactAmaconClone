@@ -7,7 +7,8 @@ import { useDispatch } from 'react-redux'
 const SidebarItem = ({sideMenuObj}) => {
 
 
-    const dispatch = useDispatch()
+  // Getting dispatch
+  const dispatch = useDispatch()
 
   return (
     <>

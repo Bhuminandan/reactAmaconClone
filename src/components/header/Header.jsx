@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { indiaflag, logo } from '../../assets/index'
 import { IoLocationSharp, IoSearch } from 'react-icons/io5'
 import { IoMdArrowDropdown } from 'react-icons/io'
@@ -12,14 +12,15 @@ import { useNavigate } from 'react-router-dom'
 const Header = () => {
 
 
+  const [searchText, setSearchText] = useState('');
+
+
   const dispatch = useDispatch()
   const navigate=  useNavigate();
+
+
   let currentCartItems = useSelector(state => state.cartSlice.cartItems.length)
-
   const user = useSelector(state => state.userSlice.user)
-  console.log(user);
-
-  console.log(currentCartItems);
 
   // Getting the current state of isDropdownOpen
   const isDropdownOpen = useSelector(state => state.headerSlice.isDropdownOpen)

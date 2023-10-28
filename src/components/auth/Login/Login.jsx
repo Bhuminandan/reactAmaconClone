@@ -25,6 +25,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true)
 
+    // Validations
     if (!email || !password) {
       errorToast('Please fill all the fields', 2000);
       setLoading(false)
@@ -35,13 +36,16 @@ const Login = () => {
 
     const handleSignIn = async () => {
 
+      // Handling signin
       try {
 
 
+        // Getting user credentials
         const userCredentials = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredentials.user;
 
 
+        // Getting user data
         const userDoc = await getDoc(doc(db, 'users', user.uid))
         const userData = userDoc.data();
 
@@ -84,33 +88,40 @@ const Login = () => {
 
   return (
     <div className='w-screen h-screen flex items-center justify-start md:mt-20 mt-10 px-5 flex-col'>
+
     <div className='w-32 mb-10'>
       <img src={logo} alt="amazonlogo" />
     </div>
+
+      {/* Login form */}
     <form
       onSubmit={handleSignInSubmit}
       className='flex flex-col items-start justify-start border gap-4 rounded-sm p-4 w-full px-10 md:w-1/3'>
-      <h2 className='md:text-4xl text-2xl font-medeium py-5'>Login</h2>
-      <div className='flex flex-col items-start justify-start w-full gap-1'>
-        <h3 className='text-md font-medium'>Email</h3>
-        <Input type='email' placeholder='Email' onChange={(e) => setEmail(e.target.value)} value={email} />
-      </div>
-      <div className='flex flex-col items-start justify-start w-full gap-1'>
-        <h3 className='text-md font-medium'>Password</h3>
-        <PasswordInput type='password' placeholder='Password...' onChange={(e) => setPassword(e.target.value)} value={password} />
-      </div>
-      <div className='flex items-center justify-center w-full rounded-md border'>
-        <Button btnText={'Login'} type='submit' isActive={loading}/>
-      </div>
+          <h2 className='md:text-4xl text-2xl font-medeium py-5'>Login</h2>
+          <div className='flex flex-col items-start justify-start w-full gap-1'>
+            <h3 className='text-md font-medium'>Email</h3>
+            <Input type='email' placeholder='Email' onChange={(e) => setEmail(e.target.value)} value={email} />
+          </div>
+          <div className='flex flex-col items-start justify-start w-full gap-1'>
+            <h3 className='text-md font-medium'>Password</h3>
+            <PasswordInput type='password' placeholder='Password...' onChange={(e) => setPassword(e.target.value)} value={password} />
+          </div>
+          <div className='flex items-center justify-center w-full rounded-md border'>
+            <Button btnText={'Login'} type='submit' isActive={loading}/>
+          </div>
     </form>
+
     <div className='flex items-center justify-center mt-5 gap-2'>Don't have and account? <span className='text-blue-500 hover:underline cursor-pointer'
     onClick={() => navigate('/auth/signup')}
-    >Signup</span></div>
+    >Signup</span>
+    </div>
+
     <div className='w-full flex items-center justify-center gap-2  pb-20'>
         Forgot Passward ? <span className='text-blue-500 hover:underline cursor-pointer'
         onClick={() => navigate('/auth/password-reset')}
         >Reset Password</span>
-      </div>
+    </div>
+
   </div>
   )
 }

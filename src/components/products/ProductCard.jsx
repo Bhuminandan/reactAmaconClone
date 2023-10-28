@@ -16,13 +16,19 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
   const navigate = useNavigate();
 
 
+  // State to check if the product is added to cart
   const [isAddedToCart, setIsAddedToCart] = useState(false);
+
+  // Getting user Details
   const user = useSelector(state => state.userSlice.user)
   
+  // Destructuring rating
   const {rate, count} = rating;
 
+  // Handling card click
   const handleCardClick = () => {
 
+    // Creating the current product data
     const currentProdData = {
       catagory,
       description,
@@ -34,23 +40,30 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
       quantity : 1
     }
 
+    // Adding current product data to redux store
     dispatch(setProductDetails(currentProdData))
 
+    // Navigating to product details page
     navigate(`/products/details/${id}`)
 
   }
 
+  // Handling add to cart
   const handleAddToCartClick = async (e) => {
 
+    // Preventing page redirect
     e.stopPropagation();
 
+    // Success toast
     successToast(`${title.substring(0, 10)}... added to cart`, 2000)
 
     // Adding the product to the cart
     let userData;
-
+    
+    // Check if the product is already in the cart
     if (user.cartItems.some((item) => item.id === id)) {
 
+      // if it is, Update the quantity of the product
       userData = {
         ...user,
           cartItems : [
@@ -61,6 +74,7 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
     }
       
     } else {
+      // if it is not, Add the product
       userData = {
         ...user,
         cartItems : [
@@ -83,6 +97,7 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
     await updateDoc(doc(db, 'users', user.uid), userData)
 
 
+    // Adding product to redux store
     dispatch(addToCard({
       id,
       title,
@@ -94,6 +109,7 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
       quantity : 1,
     }))
 
+    // Setting isAddedToCart to true
     setIsAddedToCart(true);
 
   }
@@ -120,6 +136,7 @@ const ProductCard = ({ catagory, description, id, image, price, rating, title })
          onClick={handleAddToCartClick}
          className='bg-yellow-400 font-medium px-2 py-2 w-full rounded-lg hover:bg-yellow-500 text-amazon_blue'>
           {
+            // Checking if the product is added to cart
             isAddedToCart ? 'Added to cart ✔' : 'Add to cart'
           }
          </button>

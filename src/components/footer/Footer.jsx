@@ -12,6 +12,7 @@ const Footer = () => {
   return (
     <>
     {
+      // only showind footer if user is not logged in
       !user ?
      <FooterTop/>
      :

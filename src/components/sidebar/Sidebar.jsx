@@ -33,6 +33,7 @@ const Sidebar = () => {
             if (e.target.contains(sideRef.current)) {
                 dispatch(toggleSideMenu())
             }
+
         })
 
         // Clean up
@@ -40,12 +41,18 @@ const Sidebar = () => {
     }, [sideRef, dispatch])
 
     const handleCartClick = () => {
+
+        // Navigate to cart
         navigate('/cart')
+
+        // Toggling the sidemenu
         dispatch(toggleSideMenu())
     }
 
 
+    // Sign out
     const handleSignOut = async () => {
+        
         try {
 
             // Clearing the user from the redux store

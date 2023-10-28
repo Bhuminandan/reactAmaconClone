@@ -4,7 +4,8 @@ import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
 
 const PasswordInput = ({type, placeholder, onChange, value}) => {
 
-    const [isPassVisible, setIsPassVisible] = useState(false)
+  // State to manage password visibility
+  const [isPassVisible, setIsPassVisible] = useState(false)
 
 
   return (
@@ -18,8 +19,10 @@ const PasswordInput = ({type, placeholder, onChange, value}) => {
         />
         {
           isPassVisible ? 
+          // Hide password
               <AiFillEyeInvisible onClick={() => setIsPassVisible(false)} className='text-xl cursor-pointer text-slate-900'/>
               :
+          // Show password
               <AiFillEye onClick={() => setIsPassVisible(true)} className='text-xl cursor-pointer text-slate-900'/>
         }
     </div>

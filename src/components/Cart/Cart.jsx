@@ -1,73 +1,79 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import CartCardItem from './CartCardItem';
 import { emptycart } from '../../assets';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { errorToast, successToast } from '../ToastFunctions/index';
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
-import { setUser } from '../../redux/features/userSlice';
+
 
 const Cart = () => {
 
+
+  // Loading state for stripe
+  const [loading , setLoading] = useState(false)
+
+   // Get cart items from redux
   let cartItems = useSelector(state => state.cartSlice.cartItems);
 
+
+  // Calculate subtotal
   let subtotal = cartItems.reduce((acc, item) => {
     return acc + item.price * item.quantity;
   }, 0).toFixed(2)
-
-  const user = useSelector(state => state.userSlice.user)
-  const dispatch = useDispatch()
 
 
 
   const handleCheckOut = async () => {
 
+    setLoading(true)
+
+    // Handlign if someone tries to checkout with 0 items
     if (cartItems.length === 0) {
       errorToast('Your cart is empty')
+      setLoading(false)
       return;
     }
 
     // Payment integration
     const stripe = await loadStripe(`${process.env.REACT_APP_PUBLISHER_KEY}`)
 
+    // Creating object to send to backend
     const body = {
       items: cartItems,
       total: subtotal
     }
 
+    // Creating headers
     const headers = {
       'Content-Type' : 'application/json'
     }
 
     const res = await axios.post('http://localhost:7000/checkout-create-session', body, { headers });
 
+    // Storing session got from backend
     const session = res.data;
 
+    // Redirecting user to stripe checkout
     const result  = await stripe.redirectToCheckout({
       sessionId: session.id
     })
 
+    // Handling errors
     if (result.error) {
+
+        setLoading(false)
         console.log(result.error.message)
         errorToast(result.error.message)
+
     } else {
+
+        // Success toast
         successToast('Checkout successful', 1000)
+
     }
 
-    const updatedUser = {
-      ...user,
-      cartItems: []
-    }
-
-    // Removing items from users firebase data
-    await updateDoc(doc(db, 'users', user.uid), updatedUser)
-
-    // Removing cart items from redux store
-
-    dispatch(setUser(updatedUser));
-
+    setLoading(false);
 
   }
 
@@ -129,8 +135,9 @@ const Cart = () => {
                 </div>
                 </div>
             <button 
-            onClick={handleCheckOut}
-            className='w-full py-2 text-center bg-yellow-400 hover:bg-yellow-500 rounded-lg font-bold'>Proceed to Checkout</button>
+                    onClick={handleCheckOut}
+                    disabled={loading}
+                    className={`w-full py-2 text-center ${loading ? 'bg-gray-400 hover:bg-gray-500' : 'bg-yellow-500 hover:bg-yellow-600'} rounded-lg font-bold`}>{loading ? 'Redirecting to payment...' : 'Proceed to Checkout'}</button>
             </div>
     </div>
   )

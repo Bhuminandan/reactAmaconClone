@@ -1,4 +1,6 @@
 export const bottomFooterData = [
+
+    // Bottom Footer data
     {
         "id": "ID1",
         "title": "AbeBooks",

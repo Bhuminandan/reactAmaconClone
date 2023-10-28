@@ -1,4 +1,7 @@
 export const sidemenu = {
+
+    // Sidemenu data 
+
     "data": [
         {
             "title": "Trending",

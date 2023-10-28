@@ -10,11 +10,13 @@ const Category = ({category}) => {
 
 
   useEffect(() => {
+
+    // Filter products by category
     setcategoryItems(products.filter((product) => {
-      console.log(product);
       return product.category === category && product.id !== currentProductId;
     }));
-  }, [products, category])
+
+  }, [products, category, currentProductId])
 
 
   return (

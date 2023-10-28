@@ -1,6 +1,8 @@
 import React from 'react'
 
 const Input = ({type, placeholder, onChange, value}) => {
+
+  // Common input component
   return (
     <div className='w-full'>
         <input 

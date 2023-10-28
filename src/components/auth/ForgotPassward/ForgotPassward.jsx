@@ -14,6 +14,8 @@ const ForgotPassward = () => {
     const navigate = useNavigate();
 
     const handleResetButtonClick = async() => {
+
+      // Sending passward reset link
         try {
             await sendPasswordResetEmail(auth, email);
             successToast('Password reset link sent to your email', 1000);

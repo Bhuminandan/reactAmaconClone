@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
 import { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { Suspense, lazy, useEffect } from 'react';
@@ -12,16 +11,8 @@ import { setCartItems } from './redux/features/cartSlice';
 import PageLoader from './components/loaders/PageLoader';
 import ForgotPassward from './components/auth/ForgotPassward/ForgotPassward';
 
-// import Layout from './components/layout/Layout';
-// import Home from './components/home/Home';
-// import Cart from './components/Cart/Cart';
-// import Signup from './components/auth/Signup/Signup'
-// import Login from './components/auth/Login/Login';
-// import PrivateRoutes from './components/private/PrivateRoutes';
-// import SuccessPayment from './components/afterPayment/SuccessPayment';
-// import ProductDetails from './components/productDetails/ProductDetails';
-// import FailPayment from './components/afterPayment/FailPayment';
 
+// Importing components lazily
 const Layout = lazy(() => import('./components/layout/Layout'));
 const Home = lazy(() => import('./components/home/Home'));
 const Cart = lazy(() => import('./components/Cart/Cart'));
@@ -56,14 +47,12 @@ function App() {
             if (userDoc.exists()) {
               const userData = userDoc.data();
 
-              console.log(userData);
-
               // Saving the user details in the redux
               dispatch(setUser({
                 name: userData.name,
                 email: userData.email,
                 uid: userData.uid,
-                cartItems: userData.cartItems
+                cartItems: userData.cartItems,
               }));
 
               dispatch(setCartItems(userData.cartItems))
@@ -93,9 +82,16 @@ function App() {
 
 
   return (
+
+    // Suspense and lazy components
     <Suspense fallback={<PageLoader />}>
+
       <div className='font-bodyFont w-screen min-h-screen'>
+
+        {/* Toast component */}
         <Toaster
+          reverseOrder={true}
+          gutter={8}
           toastOptions={{
             success: {
               style: {
@@ -111,6 +107,8 @@ function App() {
             },
           }}
         />
+
+        {/* Routes */}
         <Routes>
 
           {/* Auth routes */}

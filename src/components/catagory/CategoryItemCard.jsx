@@ -13,6 +13,8 @@ const CategoryItemCard = ({ id, title, category, image, price, rating, descripti
 
 
     const handleViewDetails = () => {
+
+        // Adding product details to redux store to access in product details page
         dispatch(setProductDetails({
             id,
             title,
@@ -22,6 +24,8 @@ const CategoryItemCard = ({ id, title, category, image, price, rating, descripti
             rating,
             description,
         }))
+
+        // Navigating to product details page
         navigate(`/products/details/${id}`)
     }
 

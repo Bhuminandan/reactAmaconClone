@@ -16,19 +16,29 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Getting user Details
   const user = useSelector(state => state.userSlice.user);
+
+  // Getting current product details
   const currentProduct = useSelector(state => state.productDetailsSlice.currentProduct);
+
+  // Getting cart items
   const cartItems = useSelector((state) => state.cartSlice.cartItems);
-  const quantity = cartItems.find((item) => item.id === currentProduct.id)?.quantity || 0;
+
+  // Getting quantity of the current product
+  const quantity = cartItems.find((item) => item.id === currentProduct.id)?.quantity || 1;
 
 
   useEffect(() => {
 
+    // If current product is not available, redirect to home
     if (!currentProduct) {
       navigate('/');
     }
+
   }, [currentProduct, navigate]);
 
+  // Handling add to cart, Addional check
   if (!currentProduct) {
     return null; 
   }
@@ -41,8 +51,10 @@ const ProductDetails = () => {
     // Adding the product to the cart
     let userData;
 
+    // Check if the product is already in the cart
     if (user.cartItems.some((item) => item.id === id)) {
 
+      // if it is, Update the quantity of the product
       userData = {
         ...user,
           cartItems : [
@@ -50,9 +62,11 @@ const ProductDetails = () => {
               return item.id === id ? {...item, quantity : item.quantity + 1} : item
             })
           ]
-    }
+      }
       
     } else {
+
+      // if it is not, Add the product
       userData = {
         ...user,
         cartItems : [
@@ -69,12 +83,14 @@ const ProductDetails = () => {
           }
         ]
       }
+
     }
 
     // Adding user to database
     await updateDoc(doc(db, 'users', user.uid), userData)
 
 
+    // Adding product to redux store
     dispatch(addToCard({
       id,
       title,
@@ -89,24 +105,28 @@ const ProductDetails = () => {
     setIsAddedToCart(true);
   }
 
+  // Handling decrease and increase quantity
   const handleDecreaseQuantity = () => {
+
+    // Check if the product is already in the cart
     if (user.cartItems.some((item) => item.id === id)) {
       dispatch(decreaseQuantity(id))
     } else {
       errorToast('Item not added to cart')
     }
+
   }
 
   const handleIncreaseQuantity = () => {
+
+    // Check if the product is already in the cart
     if (user.cartItems.some((item) => item.id === id)) {
       dispatch(increaseQuantity(id))
     } else {
       errorToast('Item not added to cart')
     }
+    
   }
-
-
-
 
   return (
     <div className='w-screen min-h-screen flex flex-col items-start justify-start gap-2 md:mt-40 mt-32 md:px-10 px-5 pb-20'>

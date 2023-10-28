@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 const FailPayment = () => {
 
+  // Redirect to home page after 3 seconds of payment fail
   useEffect(() => {
 
     setTimeout(() => {

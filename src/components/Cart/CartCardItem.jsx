@@ -13,11 +13,15 @@ const CartCardItem = ({title, description, price, rating, image, id, quantity}) 
 
    const handleRemoveFromCart = async() => {
 
+    // Removing cart items from user data
     const updatedCart = user.cartItems.filter((item) => item.id !== id)
     await updateDoc(doc(db, 'users', user.uid), {
       cartItems : updatedCart
     })
-       dispatch(removeFromCart(id))
+
+    // Removing cart items from redux store
+    dispatch(removeFromCart(id))
+
    }
 
 

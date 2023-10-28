@@ -1,4 +1,6 @@
 export const countriesData = [
+
+    // Countries data
     { "id": "AU123X", "country": "Australia" },
     { "id": "BR456Y", "country": "Brazil" },
     { "id": "CA789Z", "country": "Canada" },
